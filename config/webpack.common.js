@@ -4,7 +4,6 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 module.exports = {
     entry: {
         app: './src/index.js'
@@ -47,13 +46,20 @@ module.exports = {
     module: {
         rules: [
             // JavaScript: Use Babel to transpile JavaScript files
-            {test: /\.js$/, exclude: /node_modules/, use: ['babel-loader']},
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },
 
             // Styles: Inject CSS into the head
             {
-                test: /\.css$/, use: [
+                test: /\.(scss|css)$/,
+                use: [
                     'style-loader',
                     {loader: 'css-loader', options: {sourceMap: false, importLoaders: 1}},
+                    {loader: 'postcss-loader', options: {sourceMap: false}},
+                    {loader: 'sass-loader', options: {sourceMap: false}},
                 ],
             },
             {
