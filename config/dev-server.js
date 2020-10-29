@@ -33,7 +33,6 @@ compiler.hooks.afterEmit.tap('webpack-hot-middleware', () => {
 // compilation error display
 app.use(hotMiddleware);
 
-
 // serve webpack bundle output
 app.use(devMiddleware);
 
@@ -41,7 +40,8 @@ app.use(devMiddleware);
 const staticPath = path.posix.join('/', 'static');
 app.use(staticPath, express.static('./static'));
 
-const port = 8080;
+// config dev server port
+const port = config.devServer.port;
 const uri = 'http://localhost:' + port;
 
 let _resolve;
